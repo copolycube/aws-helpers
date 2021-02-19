@@ -36,7 +36,6 @@ if __name__ == '__main__':
             resource_ec2 = boto3.resource('ec2', region_name=region)
             for instance in resource_ec2.instances.all():
                 try:
-                    #print(tags(instance.tags))
                     ssm = ssm_version(instance.id)
                     vartag_name = tag_name(instance.tags)
                     
@@ -44,7 +43,7 @@ if __name__ == '__main__':
 
                     with open('output_version_ssm.txt', 'a') as f:
                         sys.stdout = f # Change the standard output to the file we created.
-                        print("%s %s %s %s ResGroup_ENV:%s ResGroup_OS:%s" %(region, ssm[0], ssm[1], vartag_name, vartag_resenv, vartag_resos))
+                        print("%s %s %s %s" %(region, ssm[0], ssm[1], vartag_name))
                         sys.stdout = original_stdout # Reset the standard output to its original value   
                 except:
                     pass
